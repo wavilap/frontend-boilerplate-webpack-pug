@@ -1,27 +1,33 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
+
+function generateHtmlPlugins (templateDir) {
+	const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir))
+	return templateFiles.map(item => {
+		const parts = item.split('.')
+		const name = parts[0]
+		const extension = parts[1]
+
+		return new HtmlWebpackPlugin({
+			filename: `${name}.html`,
+			hash: true,
+			template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`)
+		})
+	})
+}
+
+const htmlPlugins = generateHtmlPlugins('src/pug/views/');
 
 module.exports = (env) => {
 	const plugins = [
 		new ExtractTextPlugin('css/[name].css'),
 		new webpack.HotModuleReplacementPlugin(),
-
-		new HtmlWebpackPlugin({
-			title: 'Home Page',
-			filename: 'index.html',
-			hash: true,
-			template: './src/index.pug'
-		}),
-		new HtmlWebpackPlugin({
-			title: 'Contact Page',
-			filename: 'contact.html',
-			hash: true,
-			template: './src/contact.pug'
-		})
 	]
+	.concat(htmlPlugins)
 
 	if (env.NODE_ENV === 'production') {
 		plugins.push(
