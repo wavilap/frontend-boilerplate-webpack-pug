@@ -1,0 +1,23 @@
+/* ===========================
+   Container
+   =========================== */
+   
+.o-container {
+	max-width: 1000px;
+	margin-right: auto;
+  margin-left: auto;
+  position: relative;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	// @include mq('tablet') {
+	// 	width: 750px;
+	// }
+	// @include mq('tablet-wide-bootstrap') {
+	// 	width: 970px;
+	// }
+	// @include mq('desktop-bootstrap') {
+	// 	width: 1000px;
+	// }
+}
+		

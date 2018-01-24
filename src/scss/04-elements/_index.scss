@@ -1,0 +1,57 @@
+html,
+body {
+	font-family: 'SamsungOne 500';
+	font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+}
+	
+a {
+	text-decoration: none;
+}
+
+a,
+button {
+	cursor: pointer;
+}
+	
+img {
+	max-width: 100%;
+	display: block;
+	height: auto;
+}
+	
+ul {
+	list-style-type: none;
+}
+	
+button,
+input,
+select,
+a {
+	outline: 0;
+	box-shadow: none;
+	&:focus {
+		outline: 0;
+		box-shadow: none;
+	}
+}
+		
+input {
+	border-radius: 0;
+	font-family: $font_text;
+}
+
+textarea {
+	height: auto !important;
+	resize: none;
+	font-family: $font_text;
+}
+	

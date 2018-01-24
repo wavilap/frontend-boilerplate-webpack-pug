@@ -1,0 +1,172 @@
+/* ===========================
+	 MIXINS
+	 =========================== */
+
+/* MEDIA QUERIES */
+// usage example: @include mq('name-breakpoint') { propiedad: valor; }
+
+@mixin mq($width, $type: min) {
+	@if map_has_key($breakpoints, $width) {
+		$width: map_get($breakpoints, $width);
+		@if $type == max {
+			 $width: $width - 1px;
+		}
+		@media only screen and (#{$type}-width: $width) {
+			@content;
+		}
+	}
+}
+
+
+/* Z-INDEX POSITION */
+// usage example: z-index: z('header');
+
+@function z($name) {
+	@if index($z-indexes, $name) {
+		@return (length($z-indexes) - index($z-indexes, $name)) + 1;
+	} @else {
+		@warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+		@return null;
+	}
+}
+$z-indexes: (
+	"outdated-browser",
+	"modal",
+	"navbar-fullscreen",
+	"header",
+	"upper-element",
+	"main",
+	"footer"
+);
+
+
+/* CENTER ELEMENT */
+// usage example: @include center-elm(true, true);
+
+@mixin center-elm($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
+
+
+/* TRANSITION INITIAL */
+
+@mixin transition-elm-ini($hide:true,$transition:all 0.5s ease-out) {
+  @if ($transition) {
+    transition: $transition;
+  }
+  @if ($hide) {
+    opacity: 0;
+    visibility: hidden;
+  }
+  @content;
+}
+
+
+/* TRANSITION END */
+
+@mixin transition-elm-end($selector:'&.active',$hide:true) {
+  @if ($selector) {
+    #{$selector} {
+      @if ($hide) {
+        opacity: 1;
+        visibility: visible;
+      }
+      @content;
+    }
+  } @else {
+    @if ($hide) {
+      opacity: 1;
+      visibility: visible;
+    }
+    @content;
+  }
+}
+
+
+/* INPUT PLACEHOLDER */
+// usage example: @include input-placeholder { color: $color; }
+
+@mixin input-placeholder {
+	&.placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+	&::-webkit-input-placeholder { @content; }
+}
+
+
+/* RESPONSIVE RATIO */
+// usage example: @include responsive-ratio(16,9);
+
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+	$padding: unquote( ( $y / $x ) * 100 + '%' );
+	@if $pseudo {
+		&:before {
+			@include pseudo($pos: relative);
+			width: 100%;
+			padding-top: $padding;
+		}
+	} @else {
+		padding-top: $padding;
+	}
+}
+
+
+/* WIDTH AND HEIGHT */
+// usage example: @include size(50px, 50px);
+
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+
+/* SQUARE SHAPE */
+// usage example: @include square(50px);
+
+@mixin square($size) {
+	@include size($size, $size);
+}
+
+
+/* CIRCLE SHAPE */
+// usage example: @include circle(50px);
+
+@mixin circle($size) {
+	@include square($size);
+	border-radius: 50%;
+}
+
+
+/* TEXT TRUNCATE */
+// usage example: @include text-truncate(100%);
+
+@mixin text-truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* BUTTON STYLE */
+// usage example: @include btn-style(color-bg);
+
+@mixin btn-style($background-color) {
+	@extend %btn;
+	background-color: $background-color;
+	&:hover {
+		background-color: lighten($background-color, 10%);
+	}
+}

@@ -1,0 +1,13 @@
+.o-row {
+	display: flex;
+	flex-wrap: wrap;
+
+	> [class*="col-"] {
+		&:first-of-type {
+			padding-left: 0 !important;
+		}
+		&:last-of-type {
+			padding-right: 0 !important;
+		}
+	}
+}
