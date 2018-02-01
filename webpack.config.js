@@ -39,7 +39,8 @@ module.exports = (env) => {
 		entry: path.resolve(__dirname, 'src/js/index.js'),
 		output: {
 			path: path.resolve(__dirname, 'dist'),
-			filename: 'js/[name].js'
+			filename: 'js/[name].js',
+			// publicPath: './'
 		},
 		devServer: {
 			port: 8080,
@@ -52,12 +53,22 @@ module.exports = (env) => {
 					use: {
 						loader: 'babel-loader',
 						options: {
-							presets: ['es2015', 'stage-2', 'react']
+							presets: ['es2015', 'stage-2']
 						}
 					}
 				},
 				{
-					test: /\.(jpg|png|gif|woff|eot|ttf|svg)$/,
+					test: /\.(jpg|png|gif)$/,
+					use: {
+						loader: 'url-loader',
+						options: {
+							limit: 1000000,
+							name: 'images/[name].[hash].[ext]'
+						}
+					}
+				},
+				{
+					test: /\.(woff|woff2|eot)$/,
 					use: {
 						loader: 'url-loader',
 						options: {

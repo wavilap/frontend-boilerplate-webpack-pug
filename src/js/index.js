@@ -1,3 +1,11 @@
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
+
 import '../scss/main.scss';
 
-console.log('success');
+;(function($) {
+
+	console.log('success');
+	
+})(jQuery);
