@@ -40,7 +40,7 @@ module.exports = (env) => {
 		output: {
 			path: path.resolve(__dirname, 'dist'),
 			filename: 'js/[name].js',
-			// publicPath: './'
+			publicPath: './'
 		},
 		devServer: {
 			port: 8080,
@@ -62,17 +62,18 @@ module.exports = (env) => {
 					use: {
 						loader: 'url-loader',
 						options: {
-							limit: 1000000,
-							name: 'images/[name].[hash].[ext]'
+							limit: 8192,
+							name: 'images/[name].[ext]'
 						}
 					}
 				},
 				{
-					test: /\.(woff|woff2|eot)$/,
+					test: /\.(woff|woff2|eot|ttf|svg)$/,
 					use: {
 						loader: 'url-loader',
 						options: {
-							limit: 1000000
+							limit: 10,
+							name: 'fonts/[name].[ext]'
 						}
 					}
 				},
