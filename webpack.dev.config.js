@@ -25,10 +25,12 @@ module.exports = {
 	entry: path.resolve(__dirname, 'src/js/index.js'),
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'js/[name].js'
+		filename: 'js/[name].js',
+		publicPath: '/'
+		// publicPath: 'http://localhost:8000/'
 	},
 	devServer: {
-		port: 8080,
+		port: 8000,
 		compress: true
 	},
 	module: {
@@ -43,11 +45,22 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.(jpg|png|gif|woff|eot|ttf|svg)$/,
+				test: /\.(jpg|png|gif)$/,
 				use: {
 					loader: 'url-loader',
 					options: {
-						limit: 1000000
+						limit: 8192,
+						name: 'images/[name].[ext]'
+					}
+				}
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|svg)$/,
+				use: {
+					loader: 'url-loader',
+					options: {
+						limit: 10,
+						name: 'fonts/[name].[ext]'
 					}
 				}
 			},
