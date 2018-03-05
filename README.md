@@ -1,9 +1,9 @@
 # Frontend Boilerplate
 
-Template Frontend para proyectos web usando **Sass**, **Pug**, **ES6(ReactJS)** y **Webpack**. Antes de continuar con el paso de **Instalación**, instalar NodeJS para el manejo de las dependencias.
+Template Frontend para proyectos web usando **Sass**, **Pug**, **ES6(ReactJS)** y **Webpack**. Antes de continuar con el paso de **Instalación**, instalar [NodeJS](https://nodejs.org/es/) para el manejo de las dependencias.
 
 ## Instalación
-Para usar este template, instalar por primera y única vez en tu computador las siguientes dependencias de manera global: webpack, webpack-cli, node-sass y yarn; esto se logran con el siguiente comando:
+Para el uso del template, instalar por primera y única vez en tu computador las siguientes dependencias de manera global: webpack, webpack-cli, node-sass y yarn; esto se logran con el siguiente comando:
 
 ```
 npm install webpack webpack-cli node-sass yarn -g
