@@ -24,7 +24,8 @@ const htmlPlugins = generateHtmlPlugins('src/pug/views/');
 
 module.exports = (env) => {
 	const plugins = [
-		new ExtractTextPlugin('css/[name].css'),
+		// new ExtractTextPlugin('css/[name].css'),
+		new ExtractTextPlugin('[name].css'),
 		new webpack.HotModuleReplacementPlugin(),
 	]
 	.concat(htmlPlugins)
@@ -58,14 +59,23 @@ module.exports = (env) => {
 					}
 				},
 				{
-					test: /\.(jpg|png|gif)$/,
-					use: {
-						loader: 'url-loader',
-						options: {
-							limit: 8192,
-							name: 'images/[name].[ext]'
-						}
-					}
+					test: /\.(jpe?g|png|gif)$/,
+					use: [
+						{
+							// loader: 'url-loader',
+							loader: 'file-loader',
+							options: {
+								limit: 8192,
+								name: 'images/[name].[hash:12].[ext]',
+							}
+						},
+						{
+							loader: 'image-webpack-loader',
+							options: {
+								bypassOnDebug: true,
+							},
+						},
+					]
 				},
 				{
 					test: /\.(woff|woff2|eot|ttf|svg)$/,

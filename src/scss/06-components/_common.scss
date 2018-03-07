@@ -1,3 +1,10 @@
 .main {
 	// Code here
+	height: 100vh;
+	background: #ccc url('../images/front.png') center/50% no-repeat;
+
+	img {
+		width: 100px;
+		height: 100px;
+	}
 }
