@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
@@ -27,6 +29,18 @@ module.exports = (env) => {
 		// new ExtractTextPlugin('css/[name].css'),
 		new ExtractTextPlugin('[name].css'),
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.ProvidePlugin({
+    	$: 'jquery',
+    	jQuery: 'jquery',
+   		'window.jQuery': 'jquery'
+    }),
+    new PurifyCSSPlugin({
+      // Give paths to parse for rules. These should be absolute!
+      paths: glob.sync(path.join(__dirname, 'src/pug/views/*.pug')),
+      purifyOptions: {
+        minify: true
+      }
+    })
 	]
 	.concat(htmlPlugins)
 

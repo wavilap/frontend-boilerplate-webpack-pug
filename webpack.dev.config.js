@@ -30,19 +30,23 @@ module.exports = {
 		// publicPath: 'http://localhost:8000/'
 	},
 	devServer: {
-		port: 8080,
+		port: 8000,
 		compress: true
 	},
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: ['es2015', 'stage-2']
-					}
-				}
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['es2015', 'stage-2']
+						}
+					},
+					// 'eslint-loader'
+				]
 			},
 			{
 				test: /\.(jpe?g|png|gif)$/,
